@@ -12,7 +12,7 @@ var fse = require('fs-extra');
 // $ sopa pull jquery@2.1.3@js
 
 nconf.file({
-  file: './config.json'
+  file: __dirname + '/config.json'
 })
 
 var components = nconf.get('components_dir')

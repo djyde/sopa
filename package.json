@@ -1,5 +1,5 @@
 {
-  "name": "Sopa",
+  "name": "sopa",
   "version": "0.1.0",
   "description": "Local package manager for web",
   "main": "index.js",

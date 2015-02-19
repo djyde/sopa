@@ -12,7 +12,7 @@ var fse = require('fs-extra');
 // $ sopa pull jquery@2.1.3@js
 
 nconf.file({
-  file: __dirname + '/config.json'
+  file: process.env.HOME + '/.sopa/config.json'
 })
 
 var components = nconf.get('components_dir')
@@ -55,11 +55,36 @@ sopa
   .description('Set components folder')
   .action(function(dir){
     nconf.set('components_dir',dir.slice(-1) == '/' ? dir : dir + '/');
-    nconf.save(function(err){
-      if(!err){
-        console.log('dir had been changed to',nconf.get('components_dir'))
-      } else console.log(err)
-    });
+    fs.exists(process.env.HOME + '/.sopa', function(exists){
+      if(exists){
+        nconf.save(function(err){
+          if(!err){
+            console.log('dir had been changed to',nconf.get('components_dir'))
+          } else console.log(err)
+        });
+      } else {
+        var config = {
+            "components_dir": dir.slice(-1) == '/' ? dir : dir + '/'
+        }
+        mkdirp(process.env.HOME + '/.sopa', function(err){
+          if(!err){
+            fs.appendFile(process.env.HOME + '/.sopa/config.json','',function(err){
+              if(!err){
+                nconf.defaults({
+                  'components_dir': dir.slice(-1) == '/' ? dir : dir + '/'
+                });
+                nconf.save();
+                console.log('dir had been changed to',nconf.get('components_dir'))
+              } else {
+                console.log('append',err)
+              }
+            })
+          }
+        })
+
+      }
+    })
+    
   })
 
 sopa

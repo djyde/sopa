@@ -88,6 +88,13 @@ sopa
   })
 
 sopa
+  .command('get-dir')
+  .description('Get current components dir')
+  .action(function(){
+    console.log(nconf.get('components_dir'));
+  })
+
+sopa
   .command('install <package> <folder>')
   .description('install package to current dir')
   .action(function(package,folder){

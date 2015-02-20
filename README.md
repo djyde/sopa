@@ -2,6 +2,11 @@
 
 Sopa is a local package manager. You can imagine it was a **local version of bower**.
 
+![](https://img.shields.io/npm/v/sopa.svg?style=flat)
+![](https://img.shields.io/npm/dm/sopa.svg?style=flat)
+
+
+
 ##Getting Start
 
 ###Install
